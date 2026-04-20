@@ -8,7 +8,7 @@ app.use(cors());
 
 const WEBHOOK = process.env.WEBHOOK_URL;
 
-// 🧠 memoria simple (en RAM)
+// ram
 const ipData = {};
 
 app.post("/send", async (req, res) => {
@@ -40,7 +40,7 @@ app.post("/send", async (req, res) => {
   data.lastRequest = now;
   data.count++;
 
-  // 🧠 detectar spam
+//spam detectador
   const isSpam = data.count >= 3; // 3 envíos = sospechoso
 
   console.log(`IP: ${ip} | Count: ${data.count}`);
@@ -49,14 +49,14 @@ app.post("/send", async (req, res) => {
 
   if (body.embeds && body.embeds[0]) {
 
-    // 🌐 IP
+    // IP
     body.embeds[0].fields.push({
       name: "🌐 IP",
       value: ip || "Desconocida",
       inline: false
     });
 
-    // 🚨 ALERTA
+    //  ALERTA
     if (isSpam) {
       body.embeds[0].fields.push({
         name: "🚨 ALERTA",
